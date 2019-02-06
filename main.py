@@ -49,52 +49,59 @@ def recebeNumero(num):
     num = int(((num / 100) - cent) * 100)
     cent = cent * 100
     aux += 'cento' if cent == 100 else simpleNumbers[cent]
-    aux += ' e '
+    if num > 0:
+      aux += ' e '
 
   if num / 10 > 1:
     dezena = num // 10
     num = int(((num / 10) - dezena) * 10)
     dezena = dezena * 10
     aux += simpleNumbers[dezena]
-    aux += ' e '
+    if num > 0:
+      aux += ' e '
 
-  aux += simpleNumbers[num]
+  if num > 0:
+    aux += simpleNumbers[num]
 
   return aux
 
+
+# Refatoração da função acima
 def recebe_numero_2(num):
   if num in simpleNumbers:
     return simpleNumbers[num]
   
-  aux = retorna_centecima(num)
-  return aux
+  frase = retorna_centecima(num)
+  return frase
 
 def retorna_centecima(num):
-  aux = ''
+  frase = ''
   if num / 100 > 1:
     cent = num // 100
+    num = int(((num / 100) - cent) * 100)
     cent = cent * 100
-    aux += 'cento' if cent == 100 else simpleNumbers[cent]
-    aux += ' e '
+    frase += 'cento' if cent == 100 else simpleNumbers[cent]
+    frase += ' e ' if num > 0 else ''
   
-  aux += retorna_decimal(int(((num / 100) - cent) * 100))
+  frase += retorna_decimal(num)
 
-  return aux
+  return frase
 
 def retorna_decimal(num):
-  aux = ''
-  if num / 10 > 1:
+  frase = ''
+  if num / 10 > 1 and num > 0:
     dezena = num // 10
+    num = int(((num / 10) - dezena) * 10)
     dezena = dezena * 10
-    aux += simpleNumbers[dezena]
-    aux += ' e '
+    frase += simpleNumbers[dezena]
+    frase += ' e ' if num > 0 else ''
 
-  aux += retorna_resto(int(((num / 10) - dezena) * 10))
+  frase += retorna_resto(num)
   
-  return aux
+  return frase
 
 def retorna_resto(num):
-  if num in simpleNumbers
+  if num in simpleNumbers and num > 0:
     return simpleNumbers[num]
   return ''
 
